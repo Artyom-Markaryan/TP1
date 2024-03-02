@@ -16,7 +16,7 @@ public class Composant {
         this.categorie = getCategorie(original.categorie);
         this.marque = original.marque;
         this.nom = original.nom;
-        this.prix = original.prix;
+        this.prix = original.getPrix();
     }
 
     public Composant copier() { // Méthode pour copier cet objet

@@ -46,17 +46,15 @@ public class Configuration {
         return nbComposants;
     }
 
-    public String setDescription(String description) {
-        String nouvelleDescription = description;
-        return nouvelleDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public double setPrixMax(double prixMaximum) {
-        double nouveauPrixMaximum = prixMaximum;
-        if (nouveauPrixMaximum < 0) {
-            nouveauPrixMaximum = 0; // Empêcher un nombre négative
+    public void setPrixMax(double prixMaximum) {
+        if (prixMaximum < 0) {
+            prixMaximum = 0; // Empêcher un nombre négative
         }
-        return nouveauPrixMaximum;
+        this.prixMaximum = prixMaximum;
     }
 
     public double calculerTotal(double taxe) { // Calculer le prix total de la configuration avec taxe
@@ -92,7 +90,7 @@ public class Configuration {
     }
 
     public boolean ajouter(Composant composant) { // Ajouter un composant dans la configuration
-        if (nbMaxComposants >= nbComposants && rechercher(composant.categorie) == null && (prixMaximum == 0 || prixMaximum >= composant.getPrix())) {
+        if (nbMaxComposants >= nbComposants && rechercher(composant.categorie) == null && (prixMaximum == 0 || prixMaximum >= calculerTotal(0) + composant.getPrix())) {
             tableauComposants[positionLibre()] = new Composant(composant);
             nbComposants++;
             return true;
@@ -124,15 +122,16 @@ public class Configuration {
     public void afficherTout() { // Afficher toute la configuration
         String premiereLigne = "";
         if (prixMaximum != 0) {
-            premiereLigne = description + " (max " + prixMaximum + "$) :";
+            premiereLigne = getDescription() + " (max " + prixMaximum + "$) :";
         }
         else {
-            premiereLigne = description + " (montant illimité) :";
+            premiereLigne = getDescription() + " (montant illimité) :";
         }
         System.out.println(premiereLigne);
+        int j = 1;
         for (int i = 0; i < tableauComposants.length; i++) {
             if (tableauComposants[i] != null) {
-                System.out.println(i + 1 + ": " + tableauComposants[i].toString() + " (" + tableauComposants[i].getPrix() + "$)");
+                System.out.println(j++ + ": " + tableauComposants[i].toString() + " (" + tableauComposants[i].getPrix() + "$)");
             }
         }
     }
