@@ -128,10 +128,10 @@ public class Configuration {
     public void afficherTout() { // Afficher toute la configuration
         String premiereLigne = "";
         if (prixMaximum != 0) {
-            premiereLigne = getDescription() + " (max " + prixMaximum + "$) :";
+            premiereLigne = description + " (max " + prixMaximum + "$) :";
         }
         else {
-            premiereLigne = getDescription() + " (montant illimité) :";
+            premiereLigne = description + " (montant illimité) :";
         }
         System.out.println(premiereLigne);
         int j = 1;
