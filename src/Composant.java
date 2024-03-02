@@ -63,7 +63,7 @@ public class Composant {
     }
 
     public boolean estPareilQue(Composant composant) { // Méthode pour comparer cet composant avec un autre
-        if (this.categorie == composant.categorie && this.marque == composant.marque && this.nom == composant.nom) {
+        if (this.categorie.equals(composant.categorie) && this.marque.equals(composant.marque) && this.nom.equals(composant.nom)) {
             return true;
         }
         else {

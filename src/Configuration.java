@@ -22,9 +22,10 @@ public class Configuration {
     public Configuration(Configuration original) { // Constructeur de copie
         this.description = original.description;
         this.prixMaximum = original.prixMaximum;
-        this.tableauComposants = original.tableauComposants;
-        for (int i = 0; i < original.tableauComposants.length; i++) {
+        this.tableauComposants = new Composant[nbMaxComposants];
+        for (int i = 0; i < tableauComposants.length; i++) {
             if (original.tableauComposants[i] != null) {
+                tableauComposants[i] = new Composant(original.tableauComposants[i]);
                 nbComposants++;
             }
         }
@@ -113,7 +114,12 @@ public class Configuration {
         Composant vieuxComposant = rechercher(composant.categorie);
         if (vieuxComposant != null && vieuxComposant.categorie.equals(composant.categorie)) {
             retirer(vieuxComposant); // Rétirer le vieux composant
-            ajouter(composant); // Ajouter le nouveau composant
+            if (ajouter(composant) != false) // Vérifier si l'ajout du nouveau composant est possible
+                ajouter(composant); // Ajouter le nouveau composant
+            else {
+                ajouter(vieuxComposant); // Réajouter le vieux composant
+                return false; // Refuser le remplacement
+            }
             return true;
         }
         return false;
